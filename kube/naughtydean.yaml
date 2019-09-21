@@ -11,8 +11,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: gbv-naughtydean
-            image: localhost:32000/naughtybot:registry
-            imagePullPolicy: Always
+            image: vlabresearch/naughtybot:0.0.1
             command: ['npm']
             args: ['run', 'naughtydean']
             resources:
