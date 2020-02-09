@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: "{{ include "naughtybot.fullname" . }}-dean"
+spec:
+  schedule: "{{ .Values.dean.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+        {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
+          restartPolicy: OnFailure
+          containers:
+            - name: naughtydean
+              command: ['npm']
+              args: ['run', 'naughtydean']
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                {{- toYaml .Values.env | nindent 16 }}
+              resources:
+                {{- toYaml .Values.dean.resources | nindent 16 }}
+          {{- with .Values.dean.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.dean.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.dean.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
