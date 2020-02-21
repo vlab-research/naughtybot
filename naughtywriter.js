@@ -6,8 +6,8 @@ const {pipeline} = require('stream')
 const spine = new BotSpine('naughtybot')
 const pool = new Chatbase().pool
 
-const chunkSize = process.env.NAUGHTY_CHUNK_SIZE || 100
-const timeout = process.env.NAUGHTY_TIMEOUT || 5000
+const chunkSize = +process.env.NAUGHTY_CHUNK_SIZE || 100
+const timeout = +process.env.NAUGHTY_TIMEOUT || 5000
 
 pipeline(spine.source(),
          spine.chunkedTransform(m => writeWaits(pool, m), chunkSize, timeout),
