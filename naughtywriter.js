@@ -14,6 +14,6 @@ pipeline(spine.source(),
            // Write waits and timeouts concurrently
            await Promise.all([writeWaits(pool, m),
                               writeTimeouts(pool, m)])
-         }, chunkSize, timeout),
+         }),
          spine.sink(),
          err => console.error(err))
