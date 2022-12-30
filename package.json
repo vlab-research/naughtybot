@@ -20,7 +20,7 @@
   "devDependencies": {
     "@vlab-research/mox": "0.0.10",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "nock": "^10.0.6"
   }
 }
